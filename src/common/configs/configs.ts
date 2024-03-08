@@ -18,6 +18,7 @@ export default (): Config => ({
     host: process.env.REDIS_HOST,
     port: parseInt(process.env.REDIS_PORT) || 6379,
     password: process.env.REDIS_PASSWORD,
+    url: process.env.REDIS_URL,
   },
   email: {
     user: process.env.EMAIL_SERVICE_USER,

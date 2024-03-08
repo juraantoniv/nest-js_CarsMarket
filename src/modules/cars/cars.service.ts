@@ -1,14 +1,17 @@
 import { Injectable } from '@nestjs/common';
+import { Multer } from 'multer';
+
+import { IUserData } from '../auth/interfaces/user-data.interface';
 import { CreateCarDto } from './dto/create-car.dto';
 import { UpdateCarDto } from './dto/update-car.dto';
 
 @Injectable()
 export class CarsService {
-  create(createCarDto: CreateCarDto) {
+  create(createCarDto: CreateCarDto, file: Express.Multer.File) {
     return 'This action adds a new car';
   }
 
-  findAll() {
+  findAll(query: any, userData: IUserData) {
     return `This action returns all cars`;
   }
 

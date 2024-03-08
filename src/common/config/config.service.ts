@@ -67,4 +67,19 @@ export class CustomConfigService {
   get aws_url(): string {
     return this.configs.aws_url;
   }
+  get redis_url(): string {
+    return this.configs.redis_url;
+  }
+  get auth_access_token_secret(): string {
+    return this.configs.auth_access_token_secret;
+  }
+  get auth_access_token_expiration(): string {
+    return this.configs.auth_access_token_expiration;
+  }
+  get auth_refresh_token_secret(): string {
+    return this.configs.auth_refresh_token_secret;
+  }
+  get auth_refresh_token_expiration(): string {
+    return this.configs.auth_refresh_token_expiration;
+  }
 }

@@ -5,9 +5,12 @@ import * as dotenv from 'dotenv';
 
 import { TasksService } from '../../common/crons/cron.runner';
 import configuration from '../../configs/configs';
+import { RepositoryModule } from '../../repository/repository.module';
+import { AuthModule } from '../auth/auth.module';
 import { CarsModule } from '../cars/cars.module';
 import { CustomEmailModule } from '../email/email-module';
 import { PostgresModule } from '../postgress/postgres.module';
+import { RedisModule } from '../redis/redis.module';
 import { UserModule } from '../user/user.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -18,13 +21,15 @@ dotenv.config({ path: 'environments/local.env' });
   imports: [
     CustomEmailModule,
     PostgresModule,
+    RedisModule,
+    AuthModule,
+    CarsModule,
     ConfigModule.forRoot({
       load: [configuration],
       isGlobal: true,
     }),
-    UserModule,
+    RepositoryModule,
     ScheduleModule.forRoot(),
-    CarsModule,
   ],
   controllers: [AppController],
   providers: [AppService, TasksService],

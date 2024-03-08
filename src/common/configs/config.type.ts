@@ -31,6 +31,7 @@ export type RedisConfig = {
   port: number;
   host: string;
   password: string;
+  url: string;
 };
 
 export type AWSConfig = {

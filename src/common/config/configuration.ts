@@ -21,9 +21,24 @@ export default registerAs(token, () => ({
     'src/common/email-templates/views',
   ),
 
+  redis_url: configService.get<string>('REDIS_URL'),
+
   aws_secret_key: configService.get<string>('AWS_SECRET_KEY'),
   aws_key: configService.get<string>('AWS_ACCESS_KEY'),
   aws_bucket: configService.get<string>('AWS_BUCKED'),
   aws_region: configService.get<string>('AWS_REGION'),
   aws_url: configService.get<string>('AWS_S3_URL'),
+
+  auth_access_token_secret: configService.get<string>(
+    'AUTH_ACCESS_TOKEN_SECRET',
+  ),
+  auth_access_token_expiration: configService.get<string>(
+    'AUTH_ACCESS_TOKEN_EXPIRATION',
+  ),
+  auth_refresh_token_secret: configService.get<string>(
+    'AUTH_REFRESH_TOKEN_SECRET',
+  ),
+  auth_refresh_token_expiration: configService.get<string>(
+    'AUTH_REFRESH_TOKEN_EXPIRATION',
+  ),
 }));

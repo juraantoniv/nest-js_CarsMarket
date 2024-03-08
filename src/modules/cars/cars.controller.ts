@@ -1,4 +1,19 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Query,
+  UploadedFile,
+  UseInterceptors,
+} from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
+
+import { CurrentUser } from '../auth/decorators/current-user.decorator';
+import { IUserData } from '../auth/interfaces/user-data.interface';
 import { CarsService } from './cars.service';
 import { CreateCarDto } from './dto/create-car.dto';
 import { UpdateCarDto } from './dto/update-car.dto';
@@ -8,13 +23,17 @@ export class CarsController {
   constructor(private readonly carsService: CarsService) {}
 
   @Post()
-  create(@Body() createCarDto: CreateCarDto) {
-    return this.carsService.create(createCarDto);
+  @UseInterceptors(FileInterceptor('file'))
+  create(
+    @Body() createCarDto: CreateCarDto,
+    @UploadedFile() file: Express.Multer.File,
+  ) {
+    return this.carsService.create(createCarDto, file);
   }
 
   @Get()
-  findAll() {
-    return this.carsService.findAll();
+  findAll(@Query() query: any, @CurrentUser() userData: IUserData) {
+    return this.carsService.findAll(query, userData);
   }
 
   @Get(':id')
