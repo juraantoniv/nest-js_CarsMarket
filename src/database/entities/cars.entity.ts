@@ -6,6 +6,7 @@ import { ERights } from '../../common/enums/users.rights.enum';
 import { EActive } from '../../common/enums/valiid.enum';
 import { LikeEntity } from './like.entity';
 import { UserEntity } from './user.entity';
+import { ViewsEntity } from './views.entity';
 
 @Entity('Cars')
 export class CarsEntity extends BaseEntity {
@@ -16,13 +17,16 @@ export class CarsEntity extends BaseEntity {
   description: string;
 
   @Column('text')
+  brand: string;
+
+  @Column('text', { nullable: true })
   image: string;
 
   @Column('text')
-  type_of_currency: string;
+  currency_type: string;
 
-  @Column('text')
-  currency: Array<string>;
+  @Column('text', { array: true })
+  currency: Array<any>;
 
   @Column({
     type: 'enum',
@@ -32,7 +36,10 @@ export class CarsEntity extends BaseEntity {
   @IsEnum(EActive)
   active: EActive;
 
-  @Column('text')
+  @Column('int', { default: 1 })
+  check_of_valid: number;
+
+  @Column()
   user_id: string;
   @ManyToOne(() => UserEntity, (entity) => entity.cars)
   @JoinColumn({ name: 'user_id' })
@@ -40,4 +47,7 @@ export class CarsEntity extends BaseEntity {
 
   @OneToMany(() => LikeEntity, (entity) => entity.user)
   likes?: LikeEntity[];
+
+  @OneToMany(() => ViewsEntity, (entity) => entity.car)
+  views?: ViewsEntity[];
 }

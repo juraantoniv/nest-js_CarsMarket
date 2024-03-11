@@ -14,7 +14,7 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { log } from 'console';
 
 import { EEmailAction } from '../../common/enums/email.action.enum';
-import { ExampleService } from '../../common/services/email.service';
+import { EmailService } from '../../common/services/email.service';
 import { CreateUserDto } from './dto/request/create-user.dto';
 import { UpdateUserDto } from './dto/request/update-user.dto';
 import { UserService } from './user.service';
@@ -24,7 +24,7 @@ import { UserService } from './user.service';
 export class UserController {
   constructor(
     private readonly userService: UserService,
-    private readonly exampleService: ExampleService,
+    private readonly emailService: EmailService,
   ) {}
 
   @Post()
@@ -35,9 +35,6 @@ export class UserController {
   ) {
     log('file', file);
     log('file', createUserDto);
-    await this.exampleService.example(createUserDto, EEmailAction.REGISTER, {
-      name: createUserDto.name,
-    });
     return await this.userService.create(createUserDto, file);
   }
 

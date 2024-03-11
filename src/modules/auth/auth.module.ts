@@ -2,8 +2,10 @@ import { Module } from '@nestjs/common';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtModule } from '@nestjs/jwt';
 
+import { EmailService } from '../../common/services/email.service';
 import { S3Service } from '../../common/services/s3.service';
 import { RefreshTokenRepository } from '../../repository/services/refresh-token.repository';
+import { CarsModule } from '../cars/cars.module';
 import { RedisModule } from '../redis/redis.module';
 import { UserRepository } from '../user/user.repository';
 import { AuthController } from './auth.controller';
@@ -25,6 +27,6 @@ import { TokenService } from './services/token.service';
     TokenService,
     S3Service,
   ],
-  exports: [AuthCacheService],
+  exports: [AuthCacheService, TokenService],
 })
 export class AuthModule {}

@@ -42,5 +42,9 @@ export default (): Config => ({
     auth_refresh_token_expiration: parseInt(
       process.env.AUTH_REFRESH_TOKEN_EXPIRATION,
     ),
+    recovery_password_secret: process.env.AUTH_REFRESH_RECOVERY_TOKEN_SECRET,
+    recovery_password_expiration: parseInt(
+      process.env.RECOVERY_PASSWORD_EXPIRATION,
+    ),
   },
 });

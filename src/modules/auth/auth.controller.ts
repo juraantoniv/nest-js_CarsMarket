@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Param,
   Post,
   UploadedFile,
   UseGuards,
@@ -8,11 +9,15 @@ import {
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
-import { log } from 'console';
 
 import { CreateUserDto } from '../user/dto/request/create-user.dto';
 import { CurrentUser } from './decorators/current-user.decorator';
 import { SkipAuth } from './decorators/skip-auth.decorator';
+import {
+  ChangePasswordRequestDto,
+  ConfirmPasswordRequestDto,
+  RecoveryPasswordRequestDto,
+} from './dto/request/change-password.request.dto';
 import { SignInRequestDto } from './dto/request/sign-in.request.dto';
 import { AuthUserResponseDto } from './dto/response/auth-user.response.dto';
 import { TokenResponseDto } from './dto/response/token.responce.dto';
@@ -60,8 +65,35 @@ export class AuthController {
   @Post('refresh')
   public async updateRefreshToken(
     @CurrentUser() userData: IUserData,
-    @Body('refresh_token') token: string,
+    @Body('refresh_token') refresh_token: string,
   ): Promise<TokenResponseDto> {
-    return await this.authService.refreshToken(userData, token);
+    return await this.authService.refreshToken(userData, refresh_token);
+  }
+
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'change password' })
+  @Post('change_password')
+  public async changePassword(
+    @CurrentUser() userData: IUserData,
+    @Body() body: ChangePasswordRequestDto,
+  ): Promise<void> {
+    return await this.authService.changePassword(body, userData);
+  }
+  @SkipAuth()
+  @ApiOperation({ summary: 'recovery password' })
+  @Post('recovery_password')
+  public async recoveryPassword(
+    @Body() body: RecoveryPasswordRequestDto,
+  ): Promise<void> {
+    return await this.authService.recoveryPassword(body);
+  }
+  @SkipAuth()
+  @ApiOperation({ summary: 'recovery password' })
+  @Post('confirm_password/:token')
+  public async confirmPassword(
+    @Param('token') token: string,
+    @Body() body: ConfirmPasswordRequestDto,
+  ): Promise<string> {
+    return await this.authService.confirmPassword(token, body);
   }
 }

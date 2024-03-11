@@ -34,7 +34,7 @@ export class JwtAccessGuard implements CanActivate {
       throw new UnauthorizedException();
     }
     const payload = await this.tokenService.verifyToken(
-      accessToken,
+      accessToken.trim(),
       TokenType.ACCESS,
     );
     if (!payload) {

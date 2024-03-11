@@ -47,4 +47,6 @@ export type TokenConfig = {
   auth_access_token_expiration: number;
   auth_refresh_token_secret: string;
   auth_refresh_token_expiration: number;
+  recovery_password_secret: string;
+  recovery_password_expiration: number;
 };

@@ -30,4 +30,9 @@ export class CreateUserDto {
   // @Max(99)
   @IsString()
   age: number;
+
+  @IsString()
+  @Length(2, 20)
+  @Transform(({ value }) => value.trim())
+  city: string;
 }

@@ -32,6 +32,9 @@ export class TokenService {
       refreshToken,
     };
   }
+  public async generateRecoveryToken(payload: JwtPayload): Promise<string> {
+    return await this.generateToken(payload, TokenType.RecoveryPassword);
+  }
 
   public async verifyToken(
     token: string,
@@ -52,7 +55,6 @@ export class TokenService {
   ): Promise<string> {
     const secret = this.getSecret(type);
     const expiresIn = this.getExpiresIn(type);
-
     return await this.jwtService.signAsync(payload, { expiresIn, secret });
   }
 
@@ -62,6 +64,8 @@ export class TokenService {
         return this.jwtConfig.auth_access_token_secret;
       case TokenType.REFRESH:
         return this.jwtConfig.auth_refresh_token_secret;
+      case TokenType.RecoveryPassword:
+        return this.jwtConfig.recovery_password_secret;
     }
   }
 
@@ -71,6 +75,8 @@ export class TokenService {
         return this.jwtConfig.auth_access_token_expiration;
       case TokenType.REFRESH:
         return this.jwtConfig.auth_refresh_token_expiration;
+      case TokenType.RecoveryPassword:
+        return this.jwtConfig.recovery_password_expiration;
     }
   }
 }

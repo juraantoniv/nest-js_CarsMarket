@@ -7,11 +7,12 @@ import { Car_DealershipEntity } from './car_dealership.entity';
 import { CarsEntity } from './cars.entity';
 import { LikeEntity } from './like.entity';
 import { RefreshTokenEntity } from './refresh.token.entity';
+import { ViewsEntity } from './views.entity';
 
 @Entity('usersData')
 export class UserEntity extends BaseEntity {
-  @Column('text', { nullable: true })
-  name?: string;
+  @Column('text')
+  name: string;
 
   @Column('text')
   email: string;
@@ -19,7 +20,7 @@ export class UserEntity extends BaseEntity {
   @Column('text', { select: false })
   password: string;
 
-  @Column('int', { nullable: true })
+  @Column('int')
   age: number;
 
   @Column('text', { nullable: true })
@@ -55,4 +56,7 @@ export class UserEntity extends BaseEntity {
 
   @OneToOne(() => Car_DealershipEntity, (entity) => entity.user)
   dealer?: Car_DealershipEntity;
+
+  @OneToMany(() => ViewsEntity, (entity) => entity.user)
+  views?: ViewsEntity[];
 }

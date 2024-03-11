@@ -1,6 +1,6 @@
 export enum TableNameEnum {
   ARTICLES = 'articles',
-  COMMENTS = 'comments',
+  VIEWS = 'views',
   FOLLOWS = 'follows',
   LIKES = 'likes',
   REFRESH_TOKEN = 'refresh-tokens',

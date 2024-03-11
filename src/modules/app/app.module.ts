@@ -4,6 +4,7 @@ import { ScheduleModule } from '@nestjs/schedule';
 import * as dotenv from 'dotenv';
 
 import { TasksService } from '../../common/crons/cron.runner';
+import { EmailService } from '../../common/services/email.service';
 import configuration from '../../configs/configs';
 import { RepositoryModule } from '../../repository/repository.module';
 import { AuthModule } from '../auth/auth.module';
@@ -32,6 +33,6 @@ dotenv.config({ path: 'environments/local.env' });
     ScheduleModule.forRoot(),
   ],
   controllers: [AppController],
-  providers: [AppService, TasksService],
+  providers: [AppService, TasksService, EmailService],
 })
 export class AppModule {}

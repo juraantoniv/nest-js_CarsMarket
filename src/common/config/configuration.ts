@@ -41,4 +41,10 @@ export default registerAs(token, () => ({
   auth_refresh_token_expiration: configService.get<string>(
     'AUTH_REFRESH_TOKEN_EXPIRATION',
   ),
+  recovery_password_secret: configService.get<string>(
+    'AUTH_REFRESH_TOKEN_SECRET',
+  ),
+  recovery_password_expiration: configService.get<string>(
+    'RECOVERY_PASSWORD_EXPIRATION',
+  ),
 }));

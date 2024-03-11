@@ -25,8 +25,6 @@ export class AuthCacheService {
   ): Promise<void> {
     const key = `${AUTH_CACHE.ACCESS_TOKEN}:${userId}:${deviceId}`;
 
-    log(this.jwtConfig);
-
     await this.redisService.deleteByKey(key);
     await this.redisService.addOneToSet(key, accessToken);
     await this.redisService.expire(

@@ -5,28 +5,27 @@ import { join } from 'path';
 import * as path from 'path';
 import process from 'process';
 
+import { UserEntity } from '../../database/entities/user.entity';
 import { CreateUserDto } from '../../modules/user/dto/request/create-user.dto';
 import { templates } from '../constans/email.constant';
 import { EEmailAction } from '../enums/email.action.enum';
 
 @Injectable()
-export class ExampleService {
+export class EmailService {
   constructor(private readonly mailerService: MailerService) {}
 
-  public async example(
-    dto: Partial<CreateUserDto>,
+  public async send(
+    email: string,
     emailAction: EEmailAction,
     context: Record<string, string | number> = {},
   ): Promise<void> {
     const { subject, templateName } = templates[emailAction];
 
     const mailOptions = {
-      to: dto.email,
+      to: email,
       subject,
       template: templateName,
-      context: {
-        name: context.name,
-      },
+      context,
     };
     try {
       await this.mailerService.sendMail(mailOptions);
